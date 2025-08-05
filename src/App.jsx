@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
 import { supabase } from './supabaseClient'
 
 import Login from './pages/login'
@@ -25,7 +25,8 @@ export default function App() {
         <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Login />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
         <Route path="/turma/:id" element={user ? <TurmaDetalhe /> : <Navigate to="/" />} />
+        <Route path="*" element={<p>404 - Página não encontrada</p>} />
       </Routes>
     </BrowserRouter>
   )
-}
+} 
