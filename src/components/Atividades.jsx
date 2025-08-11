@@ -61,47 +61,101 @@ export default function Atividades({ turmaId }) {
   }
 
   return (
-    <div style={{ marginTop: 30 }}>
-      <h3>Atividades da Turma</h3>
+    <div className="atividades">
+      <style>{`
+        .atividades h3 {
+          margin-bottom: 16px;
+          color: #333;
+        }
+        .atividades input {
+          padding: 10px;
+          margin-right: 10px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 1rem;
+          background: #fff;
+          margin-bottom: 10px;
+        }
+        .atividades input:focus {
+          border-color: #4a90e2;
+          outline: none;
+        }
+        .atividades button {
+          padding: 8px 14px;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        }
+        .atividades button:first-of-type {
+          background: #4a90e2;
+          color: white;
+        }
+        .atividades button:first-of-type:hover {
+          background: #357ABD;
+        }
+        .atividades button:last-of-type {
+          background: #777;
+          color: white;
+          margin-left: 8px;
+        }
+        .atividades button:last-of-type:hover {
+          background: #555;
+        }
+        .atividades ul {
+          list-style: none;
+          padding: 0;
+        }
+        .atividades li {
+          background: #f8f9fa;
+          padding: 12px;
+          border-radius: 8px;
+          margin-bottom: 8px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .atividades li button {
+          background: #e74c3c;
+          color: white;
+          margin-top: 6px;
+        }
+        .atividades li button:hover {
+          background: #c0392b;
+        }
+      `}</style>
 
-      <div style={{ marginBottom: 10 }}>
+      <h3>Atividades da Turma</h3>
+      <div>
         <input
           placeholder="Título da atividade"
           value={titulo}
           onChange={e => setTitulo(e.target.value)}
-          style={{ marginRight: 10 }}
         />
         <input
           placeholder="Descrição (opcional)"
           value={descricao}
           onChange={e => setDescricao(e.target.value)}
-          style={{ marginRight: 10 }}
         />
         <input
           type="date"
           value={dataEntrega}
           onChange={e => setDataEntrega(e.target.value)}
         />
-        <button onClick={criarAtividade} disabled={loading} style={{ marginLeft: 10 }}>
+        <button onClick={criarAtividade} disabled={loading}>
           {loading ? 'Adicionando...' : 'Adicionar'}
         </button>
         <button onClick={() => navigate(-1)}>Voltar</button>
       </div>
 
-      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+      <ul>
         {atividades.length === 0 && <li>Nenhuma atividade cadastrada.</li>}
         {atividades.map(atividade => (
-          <li key={atividade.id} style={{ marginBottom: 10 }}>
+          <li key={atividade.id}>
             <strong>{atividade.titulo}</strong><br />
             {atividade.descricao && <em>{atividade.descricao}</em>}<br />
             Entrega: {atividade.data_entrega}
             <br />
-            <button
-              onClick={() => excluirAtividade(atividade.id)}
-              style={{ marginTop: 5, color: 'red' }}
-            >
-              Excluir
-            </button>
+            <button onClick={() => excluirAtividade(atividade.id)}>Excluir</button>
           </li>
         ))}
       </ul>
